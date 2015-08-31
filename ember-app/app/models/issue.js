@@ -50,6 +50,7 @@ var Issue = Ember.Object.extend(Serializable,{
           this.set("processing", false);
           this.set("body", response.body);
           this.set("body_html", response.body_html);
+          this.set("other_labels", response.labels);
         }.bind(this));
         return value;
       }

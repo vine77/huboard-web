@@ -24,7 +24,7 @@ var Board = Ember.Object.extend({
     return _.union.apply(_,[this.other_labels]
                     .concat(this.linkedRepos.map(function (r){return r.other_labels; })));
 
-  }.property("linkedRepos.@each.issues.[]", "issues.[]"),
+  }.property("linkedRepos.@each.issues.@each.other_labels", "issues.@each.other_labels"),
   filterLabels: function () {
     var labels = this.get("combinedLabels");
 

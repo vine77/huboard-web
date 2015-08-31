@@ -15,7 +15,7 @@ var HbLabelSelectorComponent = Ember.Component.extend({
       return item.name.toLowerCase().indexOf(term.toLowerCase()|| item.name.toLowerCase()) !== -1;
     }.bind(this));
 
-  }.property("filterLabels","labels"),
+  }.property("filterLabels","labels", "selected.[]"),
   actions: {
     toggleSelector: function(){
       this.set("isOpen", !!!this.$().is(".open"));

@@ -15,6 +15,7 @@ var IssueController = Ember.Controller.extend(
   isReady: function(key, value){
     if(value !== undefined) {
       if(value) {
+        //Repo labels need to be updated
         this.set("model.customState", "ready");
         return true; 
       } else {

@@ -23,7 +23,7 @@ var CssView = Ember.View.extend({
         return label;
       })
       .value();
-  }.property()
+  }.property('content.combinedLabels.[]')
 });
 
 export default CssView;

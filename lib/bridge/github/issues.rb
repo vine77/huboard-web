@@ -203,14 +203,27 @@ class Huboard
       %w{blocked ready}.each do |method|
         define_method method do
           embed_data({"custom_state" => method})
+          repo = gh.repos(self[:repo][:owner][:login], self[:repo][:name])
+          label = {
+            name: method,
+            color: method == "ready" ? "22d186" : "f9646e"
+          }
 
-          patch body: self['body']
+          status = repo.labels(method).patch(label)
+          if status["message"] && status["message"] == "Not Found"
+            repo.labels.create(label)
+          end
+
+          patch({body: self['body'], labels: self['labels'].push(method)})
         end
 
         define_method "un#{method}" do
           embed_data({"custom_state" => ""})
+          labels = self['labels'].delete_if do |label|
+            label['name'] == method
+          end
 
-          patch body: self['body']
+          patch({body: self['body'], labels: self['labels']})
         end
       end
 
