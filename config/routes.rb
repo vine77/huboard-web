@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   post '/site/webhook/issues' => 'api/webhooks#publish_issue_event', as: 'issues_webhook'
   post '/site/webhook/issue_comment' => 'api/webhooks#log_comment', as: 'issue_comment_webhook'
 
+  get '/auth/github_public/callback' => 'login#public_callback'
+  get '/auth/github_private/callback' => 'login#private_callback'
+
   # errors
   match '/404', to: 'errors#not_found', constraints: { status: /\d{3}/ }, via: :all
   match '/422', to: 'errors#unprocessable_entity', constraints: { status: /\d{3}/ }, via: :all
