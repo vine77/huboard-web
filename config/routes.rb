@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   get 'login/public' => 'login#public'
   get 'login/private' => 'login#private'
 
-  match 'auth/:provider/callback' => 'dashboard#index', via: [:get, :post]
+  match 'auth/:provider/callback' => 'login#github', via: [:get, :post]
 
   get '/repositories/private/:user' => 'dashboard#private', as: 'repositories_private'
 

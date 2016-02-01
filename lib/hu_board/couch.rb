@@ -181,7 +181,12 @@ module HuBoard
     end
 
     class User < ResourceProxy
-      identify_by :id
+      identify_by :uid
+      def find_by_uid(uid)
+        id = escape_docid("uid" => uid)
+        doc = connection.get(id)
+        return doc.body if doc.status == 200
+      end
     end
 
     def user

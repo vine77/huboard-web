@@ -1,4 +1,4 @@
-
+if false
 Rails.application.middleware.insert_after ActionDispatch::Flash, Warden::Manager do |config|
   config.scope_defaults :private, strategies: [:github],
     config: {
@@ -21,3 +21,5 @@ end
 Warden::Manager.serialize_from_session { |key| Warden::GitHub::Verifier.load(key) }
 Warden::Manager.serialize_into_session { |user| Warden::GitHub::Verifier.dump(user) }
 
+
+end
