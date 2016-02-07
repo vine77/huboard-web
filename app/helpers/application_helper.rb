@@ -39,15 +39,17 @@ module ApplicationHelper
 
   # Logs out a user if currently logged in for the specified scope.
   def github_logout(scope=:default)
-    request.env['omniauth.auth'] = nil
+    session[:user_github] = nil
   end
+
   def github_authenticated?(scope=:default)
-    request.env['omniauth.auth'].present? && request.env['omniauth.auth'].try('provider') == 'github'
+    session[:user_github].present?
   end
 
   def github_user(scope=:default)
-    request.env['omniauth.auth'].try('info').try('user')
+    Omniauth::Github::Verifier.load session[:user_github]
   end
+
   def github_session(scope=:default)
     raise NotImplemented
   end
@@ -63,7 +65,7 @@ module ApplicationHelper
     return permissions && permissions['admin']
   end
   def markdown(text)
-   Redcarpet::Markdown.new(Redcarpet::Render::Safe).render(text).html_safe
+    Redcarpet::Markdown.new(Redcarpet::Render::Safe).render(text).html_safe
   end
   def generate_issue_event(action, message)
     verb = action.present_tense

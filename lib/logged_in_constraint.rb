@@ -1,6 +1,6 @@
 class LoggedInConstraint
   def matches?(request)
-    request.env['omniauth.auth'].present? && request.env['omniauth.auth'].try('provider') == 'github'
+    request.session[:user_github].present?
     #request.env['warden'].authenticated?(:private) ||
     #  request.env['warden'].authenticated?(:default)
   end

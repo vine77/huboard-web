@@ -15,6 +15,7 @@ class LoginController < ApplicationController
   def github
     user = User.find_or_create_from_omniauth auth_hash
     session[:user_id] = user.id
+    session[:user_github] = Omniauth::Github::Verifier.dump(user)
     redirect_to session['return_to'] || "/"
   end
 
